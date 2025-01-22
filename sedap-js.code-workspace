@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "Types",
+			"path": "./types"
+		},
+		{
+			"name": "React",
+			"path": "./react"
+		},
+		{
+			"name": "Gillian (Ext)",
+			"path": "./examples/gillian-debugging"
+		},
+		{
+			"name": "Gillian (UI)",
+			"path": "./examples/gillian-debugging/ui"
+		},
+		{
+			"name": "Root"
+			"path": "."
+		}
+	],
+	"settings": {}
+}

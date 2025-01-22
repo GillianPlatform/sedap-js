@@ -1,0 +1,18 @@
+{
+  "name": "@sedap/types",
+  "version": "0.1.0",
+  "description": "SEDAP types for TypeScript",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "update-schema": "node scripts/updateSchema.js",
+    "gen-types": "json2ts ./schema/sedap.schema.json --unreachableDefinitions --additionalProperties false --cwd ./schema --output ./src/sedapTypes.ts",
+    "update": "npm run update-schema && npm run gen-types"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-schema-to-typescript": "^15.0.3",
+    "typescript": "^5.7.2"
+  }
+}

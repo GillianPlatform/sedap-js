@@ -1,0 +1,1 @@
+# SEDAP types for TypeScript

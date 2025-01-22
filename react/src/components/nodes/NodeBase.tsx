@@ -1,0 +1,58 @@
+import { Handle, Position } from "@xyflow/react";
+import { ReactNode } from "react";
+import styled from "styled-components";
+
+export type TraceViewNodeBaseProps = {
+  selected?: boolean;
+  nodeKind: string;
+  targetHandle?: boolean;
+  sourceHandle?: boolean;
+  children?: ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+};
+
+const Wrap = styled.div`
+  @layer {
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    pointer-events: none;
+  }
+`;
+
+const TraceViewNodeBase = ({
+  selected = false,
+  nodeKind,
+  targetHandle = false,
+  sourceHandle = false,
+  children,
+  style = {},
+  className: className_,
+}: TraceViewNodeBaseProps) => {
+  let className = "sedap__nodeWrap";
+  if (className_) className += ` ${className_}`;
+
+  return (
+    <>
+      {targetHandle && <Handle type="target" position={Position.Top} isConnectable={false} />}
+      <Wrap
+        data-sedap-node-kind={nodeKind}
+        data-sedap-node-selected={selected}
+        {...{ className, style }}
+      >
+        {children}
+      </Wrap>
+      {sourceHandle && <Handle type="source" position={Position.Bottom} isConnectable={false} />}
+    </>
+  );
+};
+
+export default TraceViewNodeBase;
