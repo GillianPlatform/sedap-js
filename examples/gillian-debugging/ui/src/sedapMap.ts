@@ -11,21 +11,25 @@ export type Roots = {
   [k: string]: string;
 };
 
+export type CurrentSteps = NonNullable<MapUpdateEventBody["currentSteps"]>;
+
 export type MapState = {
   roots: Roots;
   nodes: Nodes;
-  selectedNodes: readonly string[];
+  selectedNodes: CurrentSteps;
   onNodeSelected: (id: string) => void;
   onNextStepSelected: (prev: NodePrev) => void;
   ext: unknown;
 };
 
+const DEFAULT_SELECTED_NODES: CurrentSteps = { primary: [], secondary: [] };
+
 export function useSEDAPMap(): MapState {
   const [initCommandSent, setInitCommandSent] = useState(false);
   const [initialised, setInitialised] = useState(false);
-  const [nodes, setNodes] = useState({} as Nodes);
-  const [roots, setRoots] = useState({} as Roots);
-  const [selectedNodes, setSelectedNodes] = useState([] as readonly string[]);
+  const [nodes, setNodes] = useState<Nodes>({});
+  const [roots, setRoots] = useState<Roots>({});
+  const [selectedNodes, setSelectedNodes] = useState(DEFAULT_SELECTED_NODES);
   const [ext, setExt] = useState<unknown>(undefined);
 
   const handleMapUpdate = useCallback(
@@ -34,7 +38,7 @@ export function useSEDAPMap(): MapState {
         return;
       }
       setRoots(body.roots || {});
-      setSelectedNodes(body.currentSteps || []);
+      setSelectedNodes(body.currentSteps || DEFAULT_SELECTED_NODES);
       const newNodes = body.reset ? {} : { ...nodes };
       Object.entries(body.nodes || {}).forEach(([id, node]) => {
         if (node === null) {

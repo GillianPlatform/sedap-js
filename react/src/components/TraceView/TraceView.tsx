@@ -12,6 +12,7 @@ import {
   DEFAULT_CUSTOM_NODE_KINDS,
   DEFAULT_LAYOUT_OPTIONS,
   DEFAULT_REACT_FLOW_PROPS,
+  DEFAULT_SELECTED_NODES,
   TraceViewProps,
 } from "./typesAndDefaults";
 
@@ -23,7 +24,7 @@ const TraceView: React.FC<TraceViewProps> = ({
   showMinimap = true,
   showBackground = true,
   nodeKinds: customNodeKinds = DEFAULT_CUSTOM_NODE_KINDS,
-  selectedNodes = [],
+  selectedNodes = DEFAULT_SELECTED_NODES,
   onNodeSelected = () => {},
   onNextStepSelected = () => {},
   onZoomNode = () => {},

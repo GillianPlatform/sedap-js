@@ -1,9 +1,10 @@
 import { Handle, Position } from "@xyflow/react";
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { Selected } from "../../types";
 
 export type TraceViewNodeBaseProps = {
-  selected?: boolean;
+  selected?: Selected;
   nodeKind: string;
   targetHandle?: boolean;
   sourceHandle?: boolean;
@@ -29,7 +30,7 @@ const Wrap = styled.div`
 `;
 
 const TraceViewNodeBase = ({
-  selected = false,
+  selected,
   nodeKind,
   targetHandle = false,
   sourceHandle = false,
@@ -45,8 +46,11 @@ const TraceViewNodeBase = ({
       {targetHandle && <Handle type="target" position={Position.Top} isConnectable={false} />}
       <Wrap
         data-sedap-node-kind={nodeKind}
-        data-sedap-node-selected={selected}
-        {...{ className, style }}
+        {...{
+          className,
+          style,
+          ...(selected ? { "data-sedap-node-selected": selected } : {}),
+        }}
       >
         {children}
       </Wrap>

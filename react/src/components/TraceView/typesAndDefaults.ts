@@ -2,7 +2,7 @@ import { ReactFlowProps } from "@xyflow/react";
 import { LayoutOptions } from "elkjs";
 import { ReactNode } from "react";
 import { ComponentOverrides, NodeComponent, NodePrev, Size } from "../../types";
-import { MapNode } from "@sedap/types";
+import { MapNode, MapUpdateEventBody } from "@sedap/types";
 
 type Nodes = {
   [k: string]: MapNode;
@@ -17,10 +17,11 @@ export const DEFAULT_LAYOUT_OPTIONS = {
   "elk.padding": `[top=70,left=20,bottom=20,right=20]`,
   "elk.layered.compaction.postCompaction.strategy": "LEFT",
   "elk.layered.crossingMinimization.semiInteractive": "true",
-  // "elk.interactiveLayout": "true",
-  // "elk.layered.crossingMinimization.strategy": "INTERACTIVE",
-  // "elk.alg.layered.options.OrderingStrategy": "NODES_AND_EDGES",
-  // "elk.layered.crossingMinimization.forceNodeModelOrder": "true",
+};
+
+export const DEFAULT_SELECTED_NODES = {
+  primary: [],
+  secondary: [],
 };
 
 export type TraceViewProps = {
@@ -33,7 +34,7 @@ export type TraceViewProps = {
   nodeSize?: Size;
   emptyNodeSize?: Size;
   nodeKinds?: Record<string, NodeComponent>;
-  selectedNodes?: readonly string[];
+  selectedNodes?: MapUpdateEventBody["currentSteps"];
   onNodeSelected?: (nodeId: string) => void;
   onNextStepSelected?: (prev: NodePrev) => void;
   onZoomNode?: (nodeId: string) => void;

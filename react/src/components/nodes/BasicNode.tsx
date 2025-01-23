@@ -1,4 +1,4 @@
-import { NodeComponent, NodeComponentProps } from "../../types";
+import { NodeComponent, NodeComponentProps, Selected } from "../../types";
 import TraceViewFallbackNode from "./FallbackNode";
 import { ReactNode, useContext } from "react";
 import NodeBase_ from "./NodeBase";
@@ -33,11 +33,16 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
 
   const { display, selectable = true, extras } = options;
 
-  let selected = false;
-  for (const id of [node.id, ...(node.aliases || [])]) {
-    if (selectedNodes.includes(id)) {
-      selected = true;
-      break;
+  let selected: Selected;
+  if ((selectedNodes?.primary || []).includes(node.id)) {
+    selected = "primary";
+  } else {
+    const allSelected = [...(selectedNodes?.primary || []), ...(selectedNodes?.secondary || [])];
+    for (const id of [node.id, ...(node.aliases || [])]) {
+      if (allSelected.includes(id)) {
+        selected = "secondary";
+        break;
+      }
     }
   }
 
@@ -56,7 +61,7 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
     const Button = componentOverrides.selectNodeButton || componentOverrides.button || CenterButton;
     const selectButton = (
       <Button
-        disabled={busy || selected}
+        disabled={busy || selected === "primary"}
         onClick={() => selectNode(node.id)}
         className="sedap__selectNodeButton"
       >

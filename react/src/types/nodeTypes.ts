@@ -7,6 +7,8 @@ export type Size = {
   height: number;
 };
 
+export type Selected = "primary" | "secondary" | undefined;
+
 export type NodePrev = {
   id: string;
   case?: unknown;

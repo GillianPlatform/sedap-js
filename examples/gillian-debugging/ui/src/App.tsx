@@ -63,7 +63,7 @@ function App() {
       <MapWrap>
         <TraceView {...traceViewProps} />
       </MapWrap>
-      <Sidebar {...{ substs, selectedNodes, onNodeSelected }} />
+      <Sidebar {...{ substs, selectedNodes: selectedNodes.primary || [], onNodeSelected }} />
     </Wrap>
   );
 }

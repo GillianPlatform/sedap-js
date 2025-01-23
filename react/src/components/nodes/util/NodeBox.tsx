@@ -10,8 +10,8 @@ type NodeBoxProps = {
 };
 
 const Box = styled(Box_)<{ $expanded: boolean; $height?: number }>`
-  ${(props) => (props.$expanded ? "border-bottom: 1px solid black;" : "")}
   ${(props) => (props.$height ? `height: ${props.$height}px;` : "")}
+  ${(props) => (props.$expanded ? "@layer { border-bottom: 1px solid black; }" : "")}
 `;
 
 const NodeBox: React.FC<NodeBoxProps> = ({

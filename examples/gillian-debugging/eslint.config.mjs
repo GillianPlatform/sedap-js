@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ["out/", "web/"],
+    ignores: ["out/", "ui/"],
   },
   ...fixupConfigRules(
     compat.extends(

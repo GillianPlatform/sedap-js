@@ -262,7 +262,10 @@ export interface MapUpdateEventBody {
   roots?: {
     [k: string]: string;
   };
-  currentSteps?: string[];
+  currentSteps?: {
+    primary?: string[];
+    secondary?: string[];
+  };
   /**
    * If true, the map should be reset to its initial state; this event contains the full map and previous information can be discarded.
    */
