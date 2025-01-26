@@ -1,29 +1,14 @@
+import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType } from "@sedap/types";
 import { useEffect } from "react";
 import { WebviewApi } from "vscode-webview";
+import { MessageToWebview } from "@sedap/vscode-types";
 
-type MessageHandler = (message: unknown) => void;
-
-export type Message =
-  | {
-      type?: string;
-      body: unknown;
-    }
-  | undefined;
-
-export type DebuggerEventMessage = {
-  event: string;
-  body: unknown;
-};
-
-export type DebuggerCommandResult = {
-  commandId: string;
-  result: unknown;
-};
+type MessageHandler = (message: MessageToWebview) => void;
 
 export const vscodeApi = acquireVsCodeApi();
 
 function onMessage(f: MessageHandler): () => void {
-  function callback(event: MessageEvent<unknown>) {
+  function callback(event: MessageEvent<MessageToWebview>) {
     f(event.data);
   }
   window.addEventListener("message", callback);
@@ -41,17 +26,19 @@ export function useVSCode(messageHandler: MessageHandler): WebviewApi<unknown>["
 }
 
 let commandCount = 0;
-export function debuggerCommand(command: string, args: unknown): Promise<unknown> {
+export function debuggerCommand<T extends SEDAPCommandType>(
+  command: T,
+  args: SEDAPCommandArgs<T>,
+): Promise<SEDAPCommandResponse<T>> {
   return new Promise((resolve) => {
     const commandId = `${commandCount++}`;
 
-    const cancelListener = onMessage((message_) => {
-      const message = message_ as Message;
+    const cancelListener = onMessage((message: MessageToWebview) => {
       if (message && message.type === "debuggerCommandResult") {
-        const body = message.body as DebuggerCommandResult;
+        const { body } = message;
         if (body.commandId === commandId) {
           cancelListener();
-          resolve(body.result);
+          resolve(body.result as unknown as SEDAPCommandResponse<T>);
         }
       }
     });

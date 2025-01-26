@@ -7,6 +7,8 @@ import {
   WebviewPanel,
   WebviewPanelOptions,
 } from "vscode";
+import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType } from "@sedap/types";
+import { MessageFromWebview, MessageToWebview } from "@sedap/vscode-types";
 
 export type SEDAPSessionPartialProps = {
   panelName?: string;
@@ -41,38 +43,43 @@ export default class SEDAPSession implements Disposable {
   private disposeListeners: ((session: SEDAPSession) => void)[] = [];
   // #endregion
 
-  private async cusomDebuggerCommand(command: string, args: unknown): Promise<unknown> {
+  private async cusomDebuggerCommand<T extends SEDAPCommandType>(
+    command: T,
+    args: SEDAPCommandArgs<T>,
+  ): Promise<SEDAPCommandResponse<T>> {
     return await this.session.customRequest(command, args);
   }
 
-  private async sendWebviewMessage(type: string, body: unknown): Promise<boolean> {
+  private async sendWebviewMessage<T extends SEDAPCommandType>(
+    msg: MessageToWebview<T>,
+  ): Promise<boolean> {
     if (!this.panel) {
       return false;
     }
-    return this.panel.webview.postMessage({ type, body });
+    return this.panel.webview.postMessage(msg);
   }
 
   private handleCustomEvent(event: string, body: unknown) {
     this.panel?.webview?.postMessage({ type: "debuggerEvent", body: { event, body } });
   }
 
-  private handleWebviewMessage(type: string, body: unknown) {
+  private handleWebviewMessage({ type, body }: MessageFromWebview) {
     const panel = this.panel!;
     switch (type) {
       case "setPanelTitle":
-        if (typeof body === "string") {
-          panel.title = body;
-          return;
-        }
-        break;
+        panel.title = body;
+        return;
       case "debuggerCommand":
         if (body) {
-          const { command, commandId, args } = body as Record<string, unknown>;
+          const { command, commandId, args } = body;
           if (typeof command === "string") {
             this.cusomDebuggerCommand(command, args).then((result) => {
-              this.sendWebviewMessage("debuggerCommandResult", {
-                commandId: commandId,
-                result,
+              this.sendWebviewMessage({
+                type: "debuggerCommandResult",
+                body: {
+                  commandId: commandId,
+                  result,
+                },
               }).then((success) => {
                 console.log("sent", success);
               });
@@ -103,7 +110,7 @@ export default class SEDAPSession implements Disposable {
     panel.iconPath = this.panelIcon;
 
     panel.webview.onDidReceiveMessage((msg) => {
-      this.handleWebviewMessage(msg.type, msg.body);
+      this.handleWebviewMessage(msg);
     });
 
     this.panel = panel;

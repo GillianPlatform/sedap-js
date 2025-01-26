@@ -1,7 +1,8 @@
 import { MapNode, MapUpdateEventBody } from "@sedap/types";
-import { debuggerCommand, DebuggerEventMessage, Message, useVSCode } from "./vscode";
+import { debuggerCommand, useVSCode } from "./vscode";
 import { useCallback, useEffect, useState } from "react";
 import { NodePrev } from "@sedap/react";
+import { MessageToWebview } from "@sedap/vscode-types";
 
 export type Nodes = {
   [k: string]: MapNode;
@@ -24,13 +25,13 @@ export type MapState = {
 
 const DEFAULT_SELECTED_NODES: CurrentSteps = { primary: [], secondary: [] };
 
-export function useSEDAPMap(): MapState {
+export function useSEDAPMap<T = unknown>(): MapState {
   const [initCommandSent, setInitCommandSent] = useState(false);
   const [initialised, setInitialised] = useState(false);
   const [nodes, setNodes] = useState<Nodes>({});
   const [roots, setRoots] = useState<Roots>({});
   const [selectedNodes, setSelectedNodes] = useState(DEFAULT_SELECTED_NODES);
-  const [ext, setExt] = useState<unknown>(undefined);
+  const [ext, setExt] = useState<T | unknown>(undefined);
 
   const handleMapUpdate = useCallback(
     (body: MapUpdateEventBody) => {
@@ -54,12 +55,11 @@ export function useSEDAPMap(): MapState {
     [initialised, nodes],
   );
 
-  const onMessageReceived = (message_: unknown) => {
-    const message = message_ as Message;
+  const onMessageReceived = (message: MessageToWebview) => {
     if (message && message.type === "debuggerEvent") {
-      const body = message.body as DebuggerEventMessage;
+      const body = message.body;
       if (body.event === "mapUpdate") {
-        handleMapUpdate(body.body as MapUpdateEventBody);
+        handleMapUpdate(body.body);
       }
     }
   };
@@ -67,8 +67,9 @@ export function useSEDAPMap(): MapState {
 
   useEffect(() => {
     if (!initCommandSent) {
-      debuggerCommand("getFullMap", {}).then((result: unknown) => {
-        handleMapUpdate(result as MapUpdateEventBody);
+      debuggerCommand("getFullMap", {}).then((result) => {
+        console.log("RESULT!", { result });
+        handleMapUpdate(result);
         setInitialised(true);
       });
       setInitCommandSent(true);

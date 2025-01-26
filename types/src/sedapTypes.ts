@@ -196,7 +196,7 @@ export type GetFullMapRequest = (BaseProtocol & {
    */
   arguments?: unknown[] | boolean | number | null | {} | string;
 }) & {
-  command: "jump";
+  command: "getFullMap";
   arguments: GetFullMapArguments;
 };
 /**
@@ -230,7 +230,7 @@ export type GetFullMapResponse = (BaseProtocol & {
    */
   body?: unknown[] | boolean | number | null | {} | string;
 }) & {
-  body?: MapUpdateEventBody;
+  body: MapUpdateEventBody;
 };
 
 /**

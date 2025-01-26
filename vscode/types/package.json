@@ -1,0 +1,13 @@
+{
+  "name": "@sedap/vscode-types",
+  "version": "1.0.0",
+  "description": "SEDAP types for TypeScript",
+  "types": "./src/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@sedap/types": "file:../../types",
+    "typescript": "^5.7.2"
+  }
+}

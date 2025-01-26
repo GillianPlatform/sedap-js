@@ -1,5 +1,8 @@
-npm:
-	cd $(dir) && npm run $(task)
+build:
+	make for-each task=build
+
+lint:
+	make for-each task=lint
 
 for-each:
 	make npm task=$(task) dir=react
@@ -7,8 +10,5 @@ for-each:
 	make npm task=$(task) dir=vscode/ui
 	make npm task=$(task) dir=examples/gillian-debugging
 
-lint:
-	make for-each task=lint
-
-build:
-	make for-each task=build
+npm:
+	cd $(dir) && npm run $(task)
