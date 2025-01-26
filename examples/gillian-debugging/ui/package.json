@@ -15,7 +15,7 @@
   "dependencies": {
     "@sedap/react": "file:../../../react",
     "@sedap/types": "file:../../../types",
-    "@sedap/vscode-ui": "file:../../../vscode/ui-utils",
+    "@sedap/vscode-ui": "file:../../../vscode/ui",
     "@vscode/webview-ui-toolkit": "^1.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
