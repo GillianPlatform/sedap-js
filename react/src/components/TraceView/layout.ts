@@ -38,7 +38,8 @@ export default async function computeLayout(
   expandedNodes: Set<string>,
   layoutOptions: LayoutOptions,
 ): Promise<[Flow.Node[], Flow.Edge[]]> {
-  function structureNodesAndEdges(firstId: string, submapDepth = 0): ElkNodeExt {
+  function structureNodesAndEdges(firstId: string, parents: string[] = []): ElkNodeExt {
+    const submapDepth = parents.length;
     const children: ElkNodeExt[] = [];
     const edges: ElkEdgeExt[] = [];
     const layerCounts: number[] = [];
@@ -47,6 +48,9 @@ export default async function computeLayout(
       layerCounts[layer] = ix + 1;
       return ix;
     };
+
+    const getNodeId = (id: string) => `N_${parents.join("_")}_${id}`;
+    const getEdgeId = (ix: number, prev: NodePrev) => `E_${prev.id}_#${ix}`;
 
     const push = (
       nextId: string | null,
@@ -71,9 +75,9 @@ export default async function computeLayout(
         isEmpty,
       });
       edges.push({
-        id: `E_${prev.id}_#${edgeIx}`,
-        sources: [`N_${prev.id}`],
-        targets: [`N_${nextNodeId}`],
+        id: getEdgeId(edgeIx, prev),
+        sources: [getNodeId(prev.id)],
+        targets: [getNodeId(nextNodeId)],
         zIndex: submapDepth,
         label: edgeLabel,
       });
@@ -107,7 +111,7 @@ export default async function computeLayout(
 
         const submaps = (expandedNodes.has(id) && node.submaps) || [];
         for (const submapId of submaps) {
-          const subgraph = structureNodesAndEdges(submapId, submapDepth + 1);
+          const subgraph = structureNodesAndEdges(submapId, [...parents, id]);
           subChildren.push(...(subgraph.children || []));
           subEdges.push(...(subgraph.edges || []));
         }
@@ -117,7 +121,7 @@ export default async function computeLayout(
       }
 
       children.push({
-        id: `N_${id}`,
+        id: getNodeId(id),
         data: { node, prev },
         children: subChildren,
         edges: subEdges,
