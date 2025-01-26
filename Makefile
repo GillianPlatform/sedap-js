@@ -1,8 +1,14 @@
-npm-build:
-	cd $(dir) && npm run build
+npm:
+	cd $(dir) && npm run $(task)
+
+for-each:
+	make npm task=$(task) dir=react
+	make npm task=$(task) dir=vscode/extension-utils
+	make npm task=$(task) dir=vscode/ui-utils
+	make npm task=$(task) dir=examples/gillian-debugging
+
+lint:
+	make for-each task=lint
 
 build:
-	make npm-build dir=react
-	make npm-build dir=vscode/extension-utils
-	make npm-build dir=vscode/ui-utils
-	make npm-build dir=examples/gillian-debugging
+	make for-each task=build
