@@ -67,7 +67,7 @@ export function useSEDAPMap(): MapState {
 
   useEffect(() => {
     if (!initCommandSent) {
-      debuggerCommand("getFullMap", {}).then((result) => {
+      debuggerCommand("getFullMap", {}).then((result: unknown) => {
         handleMapUpdate(result as MapUpdateEventBody);
         setInitialised(true);
       });

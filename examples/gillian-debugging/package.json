@@ -41,6 +41,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
     "@sedap/types": "file:../../types",
+    "@sedap/vscode-ext": "file:../../vscode/extension-utils",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "14.x",

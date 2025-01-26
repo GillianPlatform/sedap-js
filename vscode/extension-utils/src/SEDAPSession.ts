@@ -8,7 +8,7 @@ import {
   WebviewPanelOptions,
 } from "vscode";
 
-type SEDAPSessionPartialProps = {
+export type SEDAPSessionPartialProps = {
   panelName?: string;
   panelIcon?: vscode.Uri;
   getWebviewHtml: (panel: WebviewPanel) => string;
@@ -17,11 +17,11 @@ type SEDAPSessionPartialProps = {
   showPanel?: boolean;
 };
 
-type SEDAPSessionProps = SEDAPSessionPartialProps & {
+export type SEDAPSessionProps = SEDAPSessionPartialProps & {
   session: DebugSession;
 };
 
-const defaultOptions: WebviewPanelOptions & WebviewOptions = {
+export const defaultWebviewOptions: WebviewPanelOptions & WebviewOptions = {
   retainContextWhenHidden: true,
   enableScripts: true,
 };
@@ -160,7 +160,7 @@ export default class SEDAPSession implements Disposable {
     this.panelIcon = panelIcon;
     this.session = session;
     this.debugType = session.type;
-    this.webviewOptions = { ...defaultOptions, ...webviewOptions };
+    this.webviewOptions = { ...defaultWebviewOptions, ...webviewOptions };
     this.webviewShowOptions = webviewShowOptions;
     this.getWebviewHtml = getWebviewHtml;
 

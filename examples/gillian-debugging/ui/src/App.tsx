@@ -1,6 +1,6 @@
 import "./App.css";
 import { TraceView, TraceViewProps } from "@sedap/react";
-import { useSEDAPMap } from "./sedapMap";
+import { useSEDAPMap } from "@sedap/vscode-ui";
 import IconButton from "./IconButton";
 import Badge from "./Badge";
 import styled from "styled-components";

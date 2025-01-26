@@ -1,0 +1,4 @@
+#storybook build directory
+storybook-static
+
+*storybook.log

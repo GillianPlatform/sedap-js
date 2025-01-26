@@ -1,10 +1,17 @@
 "use strict";
 
 import * as vscode from "vscode";
-import { DebugConfiguration, Disposable, ProviderResult, WorkspaceFolder } from "vscode";
+import {
+  DebugConfiguration,
+  Disposable,
+  ProviderResult,
+  WebviewOptions,
+  WebviewPanelOptions,
+  WorkspaceFolder,
+} from "vscode";
 import { DEBUG_TYPE } from "./consts";
-import SEDAPSession from "./sedap/SEDAPSession";
-import { getWebviewHtml } from "./webviewHtml";
+import { defaultWebviewOptions, SEDAPSession } from "@sedap/vscode-ext";
+import { getWebviewHtml, getWebviewResourceRoot } from "./webviewHtml";
 
 type LogEvent = {
   msg: string;
@@ -71,11 +78,16 @@ export function activateDebug(
         return;
       }
       const panelIcon = vscode.Uri.joinPath(context.extensionUri, "gillian.svg");
+      const webviewOptions: WebviewPanelOptions & WebviewOptions = {
+        ...defaultWebviewOptions,
+        localResourceRoots: [getWebviewResourceRoot(context)],
+      };
       const sedapSession = new SEDAPSession({
         panelName: "Gillian Debugging",
         panelIcon,
         session,
         getWebviewHtml: getWebviewHtml(context),
+        webviewOptions,
       });
       sessions[session.id] = sedapSession;
       sedapSession.showWebviewPanel();

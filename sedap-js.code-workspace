@@ -9,15 +9,15 @@
 			"path": "./react"
 		},
 		{
-			"name": "Gillian (Ext)",
+			"name": "VSCode",
+			"path": "./vscode"
+		},
+		{
+			"name": "Gillian",
 			"path": "./examples/gillian-debugging"
 		},
 		{
-			"name": "Gillian (UI)",
-			"path": "./examples/gillian-debugging/ui"
-		},
-		{
-			"name": "Root"
+			"name": "Root",
 			"path": "."
 		}
 	],
