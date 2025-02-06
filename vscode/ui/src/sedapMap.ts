@@ -1,4 +1,4 @@
-import { MapNode, MapUpdateEventBody } from "@sedap/types";
+import { MapNode, MapRoot, MapUpdateEventBody } from "@sedap/types";
 import { debuggerCommand, useVSCode } from "./vscode";
 import { useCallback, useEffect, useState } from "react";
 import { NodePrev } from "@sedap/react";
@@ -8,37 +8,35 @@ export type Nodes = {
   [k: string]: MapNode;
 };
 
-export type Roots = {
-  [k: string]: string;
-};
+export type Roots = MapRoot[];
 
 export type CurrentSteps = NonNullable<MapUpdateEventBody["currentSteps"]>;
 
-export type MapState = {
+export type MapState<T> = {
   roots: Roots;
   nodes: Nodes;
   selectedNodes: CurrentSteps;
   onNodeSelected: (id: string) => void;
   onNextStepSelected: (prev: NodePrev) => void;
-  ext: unknown;
+  ext: T | undefined;
 };
 
 const DEFAULT_SELECTED_NODES: CurrentSteps = { primary: [], secondary: [] };
 
-export function useSEDAPMap<T = unknown>(): MapState {
+export function useSEDAPMap<T = unknown>(): MapState<T> {
   const [initCommandSent, setInitCommandSent] = useState(false);
   const [initialised, setInitialised] = useState(false);
   const [nodes, setNodes] = useState<Nodes>({});
-  const [roots, setRoots] = useState<Roots>({});
+  const [roots, setRoots] = useState<Roots>([]);
   const [selectedNodes, setSelectedNodes] = useState(DEFAULT_SELECTED_NODES);
-  const [ext, setExt] = useState<T | unknown>(undefined);
+  const [ext, setExt] = useState<T | undefined>(undefined);
 
   const handleMapUpdate = useCallback(
     (body: MapUpdateEventBody) => {
       if (!initialised && !body.reset) {
         return;
       }
-      setRoots(body.roots || {});
+      setRoots(body.roots || []);
       setSelectedNodes(body.currentSteps || DEFAULT_SELECTED_NODES);
       const newNodes = body.reset ? {} : { ...nodes };
       Object.entries(body.nodes || {}).forEach(([id, node]) => {
@@ -49,7 +47,7 @@ export function useSEDAPMap<T = unknown>(): MapState {
         }
       });
       setNodes(newNodes);
-      setExt(body.ext);
+      setExt(body.ext as T | undefined);
       console.log("State updated", body);
     },
     [initialised, nodes],

@@ -37,7 +37,7 @@ export type TraceViewProps = {
   selectedNodes?: MapUpdateEventBody["currentSteps"];
   onNodeSelected?: (nodeId: string) => void;
   onNextStepSelected?: (prev: NodePrev) => void;
-  onZoomNode?: (nodeId: string) => void;
+  onZoomNode?: (id: string, name: string) => void;
   initExpandedNodes?: string[];
   componentOverrides?: ComponentOverrides;
   layoutOptions?: LayoutOptions;

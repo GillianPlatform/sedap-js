@@ -250,6 +250,14 @@ export interface MapNode {
 }
 /**
  * This interface was referenced by `SEDAP`'s JSON-Schema
+ * via the `definition` "MapRoot".
+ */
+export interface MapRoot {
+  id: string;
+  name: string;
+}
+/**
+ * This interface was referenced by `SEDAP`'s JSON-Schema
  * via the `definition` "MapUpdateEventBody".
  */
 export interface MapUpdateEventBody {
@@ -259,9 +267,7 @@ export interface MapUpdateEventBody {
   nodes?: {
     [k: string]: MapNode | null;
   };
-  roots?: {
-    [k: string]: string;
-  };
+  roots?: MapRoot[];
   currentSteps?: {
     primary?: string[];
     secondary?: string[];

@@ -12,7 +12,7 @@ export type TraceViewContext = {
   stepNext: (prev: NodePrev) => void;
   expandedNodes: Set<string>;
   setNodeExpanded: (nodeId: string, expanded: boolean) => void;
-  zoomNode: (nodeId: string) => void;
+  zoomNode: (id: string, name: string) => void;
   componentOverrides: ComponentOverrides;
 };
 

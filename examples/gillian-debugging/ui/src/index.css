@@ -86,3 +86,8 @@ body {
 .react-flow__minimap-mask {
   fill: var(--vscode-editor-selectionBackground);
 }
+
+vscode-panel-view {
+  height: 100%;
+  padding: 0;
+}

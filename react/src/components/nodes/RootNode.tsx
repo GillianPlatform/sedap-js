@@ -49,7 +49,10 @@ const TraceViewRootNode = (props: NodeComponentProps) => {
     (() => {
       const Button = componentOverrides.zoomButton || componentOverrides.button || CenterButton;
       return (
-        <Button onClick={() => zoomNode(node.id)} className="sedap__zoomNodeButton">
+        <Button
+          onClick={() => zoomNode(node.id, `${title} (${node.id})`)}
+          className="sedap__zoomNodeButton"
+        >
           <VscZoomIn />
         </Button>
       );
