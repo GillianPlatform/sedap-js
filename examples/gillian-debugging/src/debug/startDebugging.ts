@@ -1,3 +1,5 @@
+/** Wrapper function for initiating a Gillian debugging session. */
+
 import { debug, DebugConfiguration, DebugSession, window } from "vscode";
 
 let debugSession: DebugSession | null = null;

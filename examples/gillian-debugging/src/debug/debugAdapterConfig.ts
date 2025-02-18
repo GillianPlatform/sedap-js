@@ -1,4 +1,4 @@
-"use strict";
+/** Configures and registers Gillian's debug adapter with VSCode. */
 
 import * as vscode from "vscode";
 import {
@@ -9,9 +9,10 @@ import {
   WebviewPanelOptions,
   WorkspaceFolder,
 } from "vscode";
-import { DEBUG_TYPE } from "./consts";
+import { DEBUG_TYPE } from "../util/consts";
 import { defaultWebviewOptions, SEDAPSession } from "@sedap/vscode-ext";
 import { getWebviewHtml, getWebviewResourceRoot } from "./webviewHtml";
+import { DebugAdapterExecutableFactory } from "./debugAdapter";
 
 type LogEvent = {
   msg: string;
@@ -32,47 +33,8 @@ function handleCustomDebugEvent({ session, body, event }: vscode.DebugSessionCus
   console.log("Custom debug event", { session, body, event });
 }
 
-export function activateDebug(
-  context: vscode.ExtensionContext,
-  factory: vscode.DebugAdapterDescriptorFactory,
-) {
+export function activateDebugAdapter(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    // vscode.commands.registerCommand(
-    //   'extension.gillian-debug.runEditorContents',
-    //   (resource: vscode.Uri) => {
-    //     let targetResource = resource;
-    //     if (!targetResource && vscode.window.activeTextEditor) {
-    //       targetResource = vscode.window.activeTextEditor.document.uri;
-    //     }
-    //     if (targetResource) {
-    //       startDebugging({
-    //         type: DEBUG_TYPE,
-    //         name: 'Run File',
-    //         request: 'launch',
-    //         program: targetResource.fsPath,
-    //         execMode: 'debugverify',
-    //       });
-    //     }
-    //   }
-    // ),
-    // vscode.commands.registerCommand(
-    //   'extension.gillian-debug.debugEditorContents',
-    //   (resource: vscode.Uri) => {
-    //     let targetResource = resource;
-    //     if (!targetResource && vscode.window.activeTextEditor) {
-    //       targetResource = vscode.window.activeTextEditor.document.uri;
-    //     }
-    //     if (targetResource) {
-    //       startDebugging({
-    //         type: DEBUG_TYPE,
-    //         name: 'Debug File',
-    //         request: 'launch',
-    //         program: targetResource.fsPath,
-    //         execMode: 'debugverify',
-    //       });
-    //     }
-    //   }
-    // ),
     vscode.debug.onDidStartDebugSession((session) => {
       if (session.type !== DEBUG_TYPE) {
         return;
@@ -111,6 +73,7 @@ export function activateDebug(
 
   // register a configuration provider for our debug type
   const provider = new ConfigurationProvider();
+  const factory = new DebugAdapterExecutableFactory();
   context.subscriptions.push(
     vscode.debug.registerDebugConfigurationProvider(DEBUG_TYPE, provider),
     vscode.debug.registerDebugAdapterDescriptorFactory(DEBUG_TYPE, factory),

@@ -9,9 +9,9 @@ import {
   workspace,
 } from "vscode";
 import { startDebugging } from "./startDebugging";
-import { DEBUG_TYPE } from "./consts";
+import { DEBUG_TYPE } from "../util/consts";
 
-type ExecMode = "debugverify" | "debugwpst";
+type ExecMode = "verify" | "wpst";
 
 export function activateCodeLens(context: ExtensionContext) {
   const commandDisposable = commands.registerCommand(
@@ -47,10 +47,10 @@ function getLensKinds(lang: string | undefined): [ExecMode, string][] {
   }
   const lensKinds: [ExecMode, string][] = [];
   if (showVerifyLens) {
-    lensKinds.push(["debugverify", "Verify "]);
+    lensKinds.push(["verify", "Verify "]);
   }
   if (showSymbolicDebugLens) {
-    lensKinds.push(["debugwpst", "Symbolic-debug "]);
+    lensKinds.push(["wpst", "Symbolic-debug "]);
   }
   return lensKinds;
 }

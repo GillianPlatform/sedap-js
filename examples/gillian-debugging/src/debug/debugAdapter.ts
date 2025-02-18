@@ -1,6 +1,8 @@
+/** Defines Gillian's Debug Adapter, which tells VSCode how to execute Gillian for debugging. */
+
 import * as vscode from "vscode";
 import { ProviderResult, WorkspaceFolder } from "vscode";
-import vscodeVariables from "./vscodeVariables";
+import vscodeVariables from "../util/vscodeVariables";
 
 function expandPath(s: string, workspaceFolder: WorkspaceFolder | undefined): string {
   if (s.startsWith("~/")) {
@@ -10,12 +12,8 @@ function expandPath(s: string, workspaceFolder: WorkspaceFolder | undefined): st
 }
 
 export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFactory {
-  // The following use of a DebugAdapter factory shows how to control what debug adapter executable is used.
-  // Since the code implements the default behavior, it is absolutely not neccessary and we show it here only for educational purpose.
-
   createDebugAdapterDescriptor(
     _session: vscode.DebugSession,
-    executable: vscode.DebugAdapterExecutable | undefined,
   ): ProviderResult<vscode.DebugAdapterDescriptor> {
     const fileExtension = _session.configuration.program.split(".").pop();
     let langCmd: string;
@@ -64,7 +62,7 @@ export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescrip
       expandPath(arg, workspaceFolder),
     );
 
-    const mode = _session.configuration.execMode || "debugverify";
+    const mode = _session.configuration.execMode || "verify";
 
     const env = langConfig.environmentVariables || {};
     let args = [mode, "-r", "db", ...extraArgs];
@@ -88,14 +86,11 @@ export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescrip
       sourceDirectory = expandPath(sourceDirectory, workspaceFolder);
       cwd = sourceDirectory;
       cmd = "opam";
-      args = ["exec", "--", "dune", "exec", "--", langCmd].concat(args);
+      args = ["exec", "--", "dune", "exec", "--", langCmd, "debug"].concat(args);
     }
 
     console.log("Starting debugger...", { cmd, args, cwd });
     const options = { cwd, env };
-    executable = new vscode.DebugAdapterExecutable(cmd, args, options);
-
-    // make VS Code launch the DA executable
-    return executable;
+    return new vscode.DebugAdapterExecutable(cmd, args, options);
   }
 }

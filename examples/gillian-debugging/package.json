@@ -27,13 +27,12 @@
   "main": "./out/extension.js",
   "scripts": {
     "ext:build": "tsc -p ./",
-    "ui:build": "cd ui && npm run build",
-    "build": "npm run ui:build && npm run ext:build",
+    "debug-ui:build": "cd debug-ui && npm run build",
+    "build": "npm run debug-ui:build && npm run ext:build",
     "ext:watch": "tsc --watch --preserveWatchOutput -p ./",
-    "ui:watch": "cd ui && npm run watch",
-    "watch": "concurrently -n ext,ui -c red,yellow \"npm run ext:watch\" \"npm run ui:watch\"",
+    "debug-ui:watch": "cd debug-ui && npm run watch",
+    "watch": "concurrently -n ext,debug-ui -c red,yellow \"npm run ext:watch\" \"npm run debug-ui:watch\"",
     "vscode:prepublish": "npm run build",
-    "pretest": "npm run compile && npm run lint",
     "lint": "eslint ."
   },
   "devDependencies": {
@@ -43,7 +42,6 @@
     "@sedap/types": "file:../../types",
     "@sedap/vscode-ext": "file:../../vscode/ext",
     "@types/glob": "^7.2.0",
-    "@types/mocha": "^9.1.1",
     "@types/node": "14.x",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
@@ -54,7 +52,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "glob": "^8.0.1",
-    "mocha": "^9.2.2",
     "prettier": "^3.4.2",
     "typescript": "^4.6.4"
   },

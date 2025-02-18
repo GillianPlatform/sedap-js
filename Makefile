@@ -11,6 +11,7 @@ for-each-extra:
 	make for-each task="$(task)"
 	make npm task="$(task)" dir=types
 	make npm task="$(task)" dir=vscode/types
+	make npm task="$(task)" dir=examples/gillian-debugging/debug-ui
 
 for-each:
 	make npm task="$(task)" dir=react
