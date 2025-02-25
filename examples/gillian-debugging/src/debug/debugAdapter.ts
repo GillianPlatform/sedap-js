@@ -1,15 +1,8 @@
 /** Defines Gillian's Debug Adapter, which tells VSCode how to execute Gillian for debugging. */
 
 import * as vscode from "vscode";
-import { ProviderResult, WorkspaceFolder } from "vscode";
-import vscodeVariables from "../util/vscodeVariables";
-
-function expandPath(s: string, workspaceFolder: WorkspaceFolder | undefined): string {
-  if (s.startsWith("~/")) {
-    s = "${env:HOME}" + s.substring(1);
-  }
-  return vscodeVariables(s, workspaceFolder);
-}
+import { ProviderResult } from "vscode";
+import { expandPath } from "../util/vscodeVariables";
 
 export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFactory {
   createDebugAdapterDescriptor(

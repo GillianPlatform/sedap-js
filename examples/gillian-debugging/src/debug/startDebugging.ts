@@ -42,7 +42,7 @@ export async function startDebugging(config: DebugConfiguration, noDebug = false
     if (!canContinue) {
       return;
     }
-    const validLangs = ["wisl", "js", "c", "c2"];
+    const validLangs = ["WISL", "JS", "C (CompCert)", "C (CBMC)"];
     const langOptions: Map<string, string> = new Map([
       ["WISL", "wisl"],
       ["JS", "js"],
@@ -56,14 +56,14 @@ export async function startDebugging(config: DebugConfiguration, noDebug = false
         title: "Target language",
       });
       const targetLanguage = selected ? langOptions.get(selected) : undefined;
+      if (!targetLanguage) {
+        // Do not start debugger if invalid target language specified for GIL file
+        return;
+      }
       config = {
         targetLanguage: targetLanguage,
         ...config,
       };
-      if (!targetLanguage || !validLangs.includes(targetLanguage)) {
-        // Do not start debugger if invalid target language specified for GIL file
-        return;
-      }
     }
 
     await debug.startDebugging(undefined, config, { noDebug: noDebug });

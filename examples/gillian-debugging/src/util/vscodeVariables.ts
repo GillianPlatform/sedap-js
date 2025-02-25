@@ -46,3 +46,10 @@ export default function variables(
 
   return s;
 }
+
+export function expandPath(s: string, workspaceFolder: vscode.WorkspaceFolder | undefined): string {
+  if (s.startsWith("~/")) {
+    s = "${env:HOME}" + s.substring(1);
+  }
+  return variables(s, workspaceFolder);
+}

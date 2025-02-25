@@ -35,12 +35,15 @@
     "vscode:prepublish": "npm run build",
     "lint": "eslint ."
   },
+  "dependencies": {
+    "@sedap/vscode-ext": "file:../../vscode/ext",
+    "vscode-languageclient": "^9.0.1"
+  },
   "devDependencies": {
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
     "@sedap/types": "file:../../types",
-    "@sedap/vscode-ext": "file:../../vscode/ext",
     "@types/glob": "^7.2.0",
     "@types/node": "14.x",
     "@types/vscode": "^1.96.0",
