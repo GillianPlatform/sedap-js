@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ["out/", "ui/"],
+    ignores: ["esbuild.js", "dist/", "out/", "debug-ui/"],
   },
   ...fixupConfigRules(
     compat.extends(

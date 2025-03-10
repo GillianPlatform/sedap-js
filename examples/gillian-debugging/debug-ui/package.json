@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@sedap/react": "file:../../../react",
-    "@sedap/types": "file:../../../types",
     "@sedap/vscode-ui": "file:../../../vscode/ui",
     "@vscode/webview-ui-toolkit": "^1.4.0",
     "react": "^19.0.0",
@@ -26,7 +25,7 @@
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
-    "@sedap/types": "file:../../../sedap-ts",
+    "@sedap/types": "file:../../../types",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",

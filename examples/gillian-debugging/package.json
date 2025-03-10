@@ -24,15 +24,17 @@
   "bugs": {
     "url": "https://github.com/GillianPlatform/Gillian/issues"
   },
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "scripts": {
-    "ext:build": "tsc -p ./",
+    "ext:build": "node esbuild.js",
+    "ext:build-prod": "node esbuild.js --production",
     "debug-ui:build": "cd debug-ui && npm run build",
     "build": "npm run debug-ui:build && npm run ext:build",
-    "ext:watch": "tsc --watch --preserveWatchOutput -p ./",
+    "build-prod": "npm run debug-ui:build && npm run ext:build-prod",
+    "ext:watch": "node esbuild.js --watch",
     "debug-ui:watch": "cd debug-ui && npm run watch",
     "watch": "concurrently -n ext,debug-ui -c red,yellow \"npm run ext:watch\" \"npm run debug-ui:watch\"",
-    "vscode:prepublish": "npm run build",
+    "vscode:prepublish": "npm run build-prod",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -45,12 +47,14 @@
     "@eslint/js": "^9.17.0",
     "@sedap/types": "file:../../types",
     "@types/glob": "^7.2.0",
-    "@types/node": "14.x",
+    "@types/node": "22.x",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
     "@vscode/test-electron": "^2.1.3",
+    "@vscode/vsce": "^3.2.2",
     "concurrently": "^9.1.2",
+    "esbuild": "^0.25.1",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

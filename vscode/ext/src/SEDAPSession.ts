@@ -73,7 +73,7 @@ export default class SEDAPSession implements Disposable {
         if (body) {
           const { command, commandId, args } = body;
           if (typeof command === "string") {
-            this.cusomDebuggerCommand(command, args).then((result) => {
+            this.cusomDebuggerCommand(command as SEDAPCommandType, args).then((result) => {
               this.sendWebviewMessage({
                 type: "debuggerCommandResult",
                 body: {
