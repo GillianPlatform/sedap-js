@@ -26,15 +26,16 @@
   },
   "main": "./dist/extension.js",
   "scripts": {
-    "ext:build": "node esbuild.js",
-    "ext:build-prod": "node esbuild.js --production",
+    "ext:build-dev": "node esbuild.js",
+    "ext:build": "node esbuild.js --production",
     "debug-ui:build": "cd debug-ui && npm run build",
+    "build-dev": "npm run debug-ui:build && npm run ext:build-dev",
     "build": "npm run debug-ui:build && npm run ext:build",
-    "build-prod": "npm run debug-ui:build && npm run ext:build-prod",
     "ext:watch": "node esbuild.js --watch",
     "debug-ui:watch": "cd debug-ui && npm run watch",
     "watch": "concurrently -n ext,debug-ui -c red,yellow \"npm run ext:watch\" \"npm run debug-ui:watch\"",
-    "vscode:prepublish": "npm run build-prod",
+    "vscode:prepublish": "npm run build",
+    "package": "vsce package --no-dependencies",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -360,6 +361,10 @@
         "command": "extension.gillian-debug.showDebuggerWebview",
         "title": "Show Gillian debugger panel",
         "icon": "$(window)"
+      },
+      {
+        "command": "extension.gillian-debug.restartWislLSP",
+        "title": "Restart WISL language server"
       }
     ],
     "breakpoints": [
