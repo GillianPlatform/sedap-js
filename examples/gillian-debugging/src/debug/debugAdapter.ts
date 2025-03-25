@@ -58,7 +58,7 @@ export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescrip
     const mode = _session.configuration.execMode || "verify";
 
     const env = langConfig.environmentVariables || {};
-    let args = [mode, "-r", "db", ...extraArgs];
+    let args = ["debug", mode, "-r", "db", ...extraArgs];
     if (config.useManualProof) {
       args.push("-m");
     }
@@ -79,7 +79,7 @@ export class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescrip
       sourceDirectory = expandPath(sourceDirectory, workspaceFolder);
       cwd = sourceDirectory;
       cmd = "opam";
-      args = ["exec", "--", "dune", "exec", "--", langCmd, "debug"].concat(args);
+      args = ["exec", "--", "dune", "exec", "--", langCmd].concat(args);
     }
 
     console.log("Starting debugger...", { cmd, args, cwd });

@@ -4,7 +4,7 @@ import { activateLsp, deactivateLSP } from "./lsp";
 
 export function activate(context: vscode.ExtensionContext) {
   activateDebug(context);
-  activateLsp();
+  activateLsp(context);
 }
 
 export function deactivate() {
