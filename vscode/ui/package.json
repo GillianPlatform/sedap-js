@@ -12,6 +12,7 @@
   "scripts": {
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}'",
     "lint": "eslint --fix",
+    "lint-check": "eslint",
     "build": "tsc && vite build",
     "watch:tsc": "tsc --watch --preserveWatchOutput",
     "watch:vite": "vite build --watch",
