@@ -1,8 +1,8 @@
-import { MapNode, MapRoot, MapUpdateEventBody } from "@sedap/types";
+import { MapNode, MapRoot, MapUpdateEventBody } from "@gillianplatform/sedap-types";
 import { debuggerCommand, useVSCode } from "./vscode";
 import { useCallback, useEffect, useState } from "react";
-import { NodePrev } from "@sedap/react";
-import { MessageToWebview } from "@sedap/vscode-types";
+import { NodePrev } from "@gillianplatform/sedap-react";
+import { MessageToWebview } from "@gillianplatform/sedap-vscode-types";
 
 export type Nodes = {
   [k: string]: MapNode;

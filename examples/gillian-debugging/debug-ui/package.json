@@ -13,8 +13,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sedap/react": "file:../../../react",
-    "@sedap/vscode-ui": "file:../../../vscode/ui",
+    "@gillianplatform/sedap-react": "0.0.1",
+    "@gillianplatform/sedap-vscode-ui": "0.0.1",
     "@vscode/webview-ui-toolkit": "^1.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -25,7 +25,7 @@
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
-    "@sedap/types": "file:../../../types",
+    "@gillianplatform/sedap-types": "0.0.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",

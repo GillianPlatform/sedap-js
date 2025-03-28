@@ -1,12 +1,12 @@
 import "./App.css";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { MapState, useSEDAPMap } from "@sedap/vscode-ui";
-import { TraceViewProps } from "@sedap/react";
+import { MapState, useSEDAPMap } from "@gillianplatform/sedap-vscode-ui";
+import { TraceViewProps } from "@gillianplatform/sedap-react";
 import MapView from "./components/MapView";
 import { Subst } from "./components/Sidebar";
 import Tabs, { Tab } from "./components/Tabs";
-import { MapRoot } from "@sedap/types";
+import { MapRoot } from "@gillianplatform/sedap-types";
 
 type Ext = {
   substs: Record<string, Subst[] | undefined>;

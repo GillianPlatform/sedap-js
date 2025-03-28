@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { MapNodeExtra } from "@sedap/types";
+import { MapNodeExtra } from "@gillianplatform/sedap-types";
 import renderExtras from "./renderExtras";
 import styled from "styled-components";
 

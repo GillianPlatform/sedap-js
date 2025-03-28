@@ -10,7 +10,7 @@ import {
   WorkspaceFolder,
 } from "vscode";
 import { DEBUG_TYPE } from "../util/consts";
-import { defaultWebviewOptions, SEDAPSession } from "@sedap/vscode-ext";
+import { defaultWebviewOptions, SEDAPSession } from "@gillianplatform/sedap-vscode-ext";
 import { getWebviewHtml, getWebviewResourceRoot } from "./webviewHtml";
 import { DebugAdapterExecutableFactory } from "./debugAdapter";
 

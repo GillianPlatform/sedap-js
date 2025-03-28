@@ -1,13 +1,13 @@
 {
-  "name": "@sedap/vscode-types",
-  "version": "1.0.0",
+  "name": "@gillianplatform/sedap-vscode-types",
+  "version": "0.0.1",
   "description": "SEDAP types for TypeScript",
   "types": "./src/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@sedap/types": "file:../../types",
+    "@gillianplatform/sedap-types": "0.0.1",
     "typescript": "^5.7.2"
   }
 }

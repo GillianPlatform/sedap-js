@@ -1,0 +1,12 @@
+{
+  "name": "@gillianplatform/sedap",
+  "version": "0.0.1",
+  "description": "Monorepo for JavaScript libraries for SEDAP",
+  "workspaces": [
+    "./types",
+    "./react",
+    "./vscode/types",
+    "./vscode/ext",
+    "./vscode/ui"
+  ]
+}

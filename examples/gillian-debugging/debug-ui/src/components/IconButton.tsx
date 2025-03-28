@@ -1,4 +1,4 @@
-import { ButtonOverrideProps } from "@sedap/react";
+import { ButtonOverrideProps } from "@gillianplatform/sedap-react";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
 const IconButton: React.FC<ButtonOverrideProps> = ({

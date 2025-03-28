@@ -1,9 +1,9 @@
-import { NodePrev, TraceView, TraceViewProps } from "@sedap/react";
+import { NodePrev, TraceView, TraceViewProps } from "@gillianplatform/sedap-react";
 import IconButton from "./IconButton";
 import Badge from "./Badge";
 import styled from "styled-components";
 import Sidebar, { Subst } from "./Sidebar";
-import { CurrentSteps, Nodes } from "@sedap/vscode-ui";
+import { CurrentSteps, Nodes } from "@gillianplatform/sedap-vscode-ui";
 
 const Wrap = styled.div`
   width: 100%;
