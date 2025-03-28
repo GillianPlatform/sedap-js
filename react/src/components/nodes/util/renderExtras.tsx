@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import NodeBadge from "./NodeBadge";
-import { MapNodeExtra } from "@sedap/types";
+import { MapNodeExtra } from "@gillianplatform/sedap-types";
 
 export default function renderExtras(extras: MapNodeExtra[]): ReactElement[] {
   return extras.map((extra) => {

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { Set } from "immutable";
 import { ComponentOverrides, NodePrev } from "../../types";
 import { DEFAULT_SELECTED_NODES } from "./typesAndDefaults";
-import { MapUpdateEventBody } from "@sedap/types";
+import { MapUpdateEventBody } from "@gillianplatform/sedap-types";
 
 export type TraceViewContext = {
   root: string;

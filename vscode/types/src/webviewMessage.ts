@@ -1,4 +1,4 @@
-import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType, SEDAPEventBody, SEDAPEventType } from "@sedap/types";
+import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType, SEDAPEventBody, SEDAPEventType } from "@gillianplatform/sedap-types";
 
 export type CommandId = {
   commandId: string;

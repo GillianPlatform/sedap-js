@@ -2,7 +2,7 @@ import { ReactFlowProps } from "@xyflow/react";
 import { LayoutOptions } from "elkjs";
 import { ReactNode } from "react";
 import { ComponentOverrides, NodeComponent, NodePrev, Size } from "../../types";
-import { MapNode, MapUpdateEventBody } from "@sedap/types";
+import { MapNode, MapUpdateEventBody } from "@gillianplatform/sedap-types";
 
 type Nodes = {
   [k: string]: MapNode;

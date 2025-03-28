@@ -1,9 +1,0 @@
-../**/*
-tsconfig.json
-esbuild.js
-esling.config.mjs
-src/**/*
-out/**/*
-examples/**/*
-debug-ui/**/*
-!debug-ui/dist/**/*

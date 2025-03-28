@@ -1,5 +1,5 @@
 import { Set } from "immutable";
-import { MapNode } from "@sedap/types";
+import { MapNode } from "@gillianplatform/sedap-types";
 
 export const isNodeExpandable = (node?: MapNode) => node && node.submaps && node.submaps.length > 0;
 

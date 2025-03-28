@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MapNodeExtra } from "@sedap/types";
+import { MapNodeExtra } from "@gillianplatform/sedap-types";
 import Icon from "./Icon";
 import { TraceViewContext } from "../../TraceView";
 import { useContext } from "react";

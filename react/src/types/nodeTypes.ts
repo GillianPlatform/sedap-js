@@ -1,5 +1,5 @@
 import * as Flow from "@xyflow/react";
-import { MapNode } from "@sedap/types";
+import { MapNode } from "@gillianplatform/sedap-types";
 import React from "react";
 
 export type Size = {

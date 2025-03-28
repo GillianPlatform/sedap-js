@@ -1,0 +1,21 @@
+name: Check lint, versions, etc.
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci --workspaces
+      - name: Run lint
+        run: npm run lint-check --workspaces --if-present
+      - name: Check if all versions match
+        run: npm run check-versions
+      - name: Check if version bumped
+        uses: del-systems/check-if-version-bumped@v2.1.0

@@ -1,6 +1,0 @@
-{
-  "gillianDebugger.sourceDirectory": "${workspaceFolder}/../../../../Gillian",
-  "gillianDebugger.wisl.commandLineArguments": [
-    "--procs-only"
-  ]
-}

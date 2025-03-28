@@ -1,6 +1,6 @@
 import * as Flow from "@xyflow/react";
 import ELK, { ElkExtendedEdge, ElkNode, LayoutOptions } from "elkjs";
-import { MapNode } from "@sedap/types";
+import { MapNode } from "@gillianplatform/sedap-types";
 import { NodeComponent, FlowNodeData, NodePrev } from "../../types";
 import { Set } from "immutable";
 

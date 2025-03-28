@@ -1,5 +1,5 @@
 import { Set } from "immutable";
-import { MapNode } from "@sedap/types";
+import { MapNode } from "@gillianplatform/sedap-types";
 import { ComponentOverrides } from "../../../types";
 import { VscChevronRight, VscChevronDown } from "react-icons/vsc";
 import CenterButton from "./CenterButton";

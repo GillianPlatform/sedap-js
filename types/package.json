@@ -1,6 +1,6 @@
 {
-  "name": "@sedap/types",
-  "version": "0.1.0",
+  "name": "@gillianplatform/sedap-types",
+  "version": "0.0.1",
   "description": "SEDAP types for TypeScript",
   "types": "./src/index.d.ts",
   "scripts": {

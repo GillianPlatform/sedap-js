@@ -7,8 +7,12 @@ import {
   WebviewPanel,
   WebviewPanelOptions,
 } from "vscode";
-import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType } from "@sedap/types";
-import { MessageFromWebview, MessageToWebview } from "@sedap/vscode-types";
+import {
+  SEDAPCommandArgs,
+  SEDAPCommandResponse,
+  SEDAPCommandType,
+} from "@gillianplatform/sedap-types";
+import { MessageFromWebview, MessageToWebview } from "@gillianplatform/sedap-vscode-types";
 
 export type SEDAPSessionPartialProps = {
   panelName?: string;
