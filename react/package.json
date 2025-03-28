@@ -1,7 +1,8 @@
 {
   "name": "@gillianplatform/sedap-react",
   "version": "0.0.1",
-  "description": "",
+  "description": "React components for SEDAP",
+  "repository":"https://github.com/gillianplatform/sedap-js",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

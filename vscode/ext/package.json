@@ -2,6 +2,7 @@
   "name": "@gillianplatform/sedap-vscode-ext",
   "version": "0.0.1",
   "description": "SEDAP-related utilities for VSCode extensions",
+  "repository":"https://github.com/gillianplatform/sedap-js",
   "type": "commonjs",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

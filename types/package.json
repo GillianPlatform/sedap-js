@@ -2,6 +2,7 @@
   "name": "@gillianplatform/sedap-types",
   "version": "0.0.1",
   "description": "SEDAP types for TypeScript",
+  "repository":"https://github.com/gillianplatform/sedap-js",
   "types": "./src/index.d.ts",
   "scripts": {
     "update-schema": "node scripts/updateSchema.js",
