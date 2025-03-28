@@ -1,4 +1,8 @@
-import { SEDAPCommandArgs, SEDAPCommandResponse, SEDAPCommandType } from "@gillianplatform/sedap-types";
+import {
+  SEDAPCommandArgs,
+  SEDAPCommandResponse,
+  SEDAPCommandType,
+} from "@gillianplatform/sedap-types";
 import { useEffect } from "react";
 import { WebviewApi } from "vscode-webview";
 import { MessageToWebview } from "@gillianplatform/sedap-vscode-types";
