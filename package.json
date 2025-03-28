@@ -8,5 +8,8 @@
     "./vscode/types",
     "./vscode/ext",
     "./vscode/ui"
-  ]
+  ],
+  "scripts": {
+    "check-versions": "node ./scripts/checkVersion.cjs"
+  }
 }
