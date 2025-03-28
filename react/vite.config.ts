@@ -1,5 +1,3 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { peerDependencies } from "./package.json";
@@ -11,23 +9,13 @@ export default defineConfig({
       name: "vite-react-ts-button", // Sets the name of the generated library.
       fileName: (format) => `index.${format}.js`, // Generates the output file name based on the format.
       formats: ["cjs", "es"], // Specifies the output formats (CommonJS and ES modules).
+      cssFileName: "style", // Specifies the output CSS file name.
     },
     rollupOptions: {
       external: [...Object.keys(peerDependencies)], // Defines external dependencies for Rollup bundling.
-      output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.names[0] == "react.css") return "style.css";
-          return assetInfo.names[0];
-        },
-      },
     },
     sourcemap: true, // Generates source maps for debugging.
     emptyOutDir: true, // Clears the output directory before building.
-  },
-  test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: "./setupTests.ts",
   },
   plugins: [dts()], // Uses the 'vite-plugin-dts' plugin for generating TypeScript declaration files (d.ts).
 });
