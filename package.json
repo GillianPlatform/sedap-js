@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Monorepo for JavaScript libraries for SEDAP",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "workspaces": [
