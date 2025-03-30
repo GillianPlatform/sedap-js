@@ -17,10 +17,8 @@
     "format": "prettier --write --parser typescript '**/*.ts'",
     "lint": "eslint --fix",
     "lint-check": "eslint",
-    "build": "tsc && vite build",
-    "watch:tsc": "tsc --watch --preserveWatchOutput",
-    "watch:vite": "vite build --watch",
-    "watch": "concurrently -n tsc,vite -c cyan,green \"npm run watch:tsc\" \"npm run watch:vite\""
+    "build": "vite build",
+    "watch": "vite build --watch"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +32,6 @@
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
-    "concurrently": "^9.1.2",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
