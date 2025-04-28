@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Monorepo for JavaScript libraries for SEDAP",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "workspaces": [
@@ -11,6 +11,7 @@
     "./vscode/ui"
   ],
   "scripts": {
-    "check-versions": "node ./scripts/checkVersion.cjs"
+    "check-versions": "node ./scripts/checkVersion.cjs",
+    "build": "npm run build --workspaces --if-present"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React components for SEDAP",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "type": "module",
@@ -27,7 +27,7 @@
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
-    "@gillianplatform/sedap-types": "0.0.1",
+    "@gillianplatform/sedap-types": "0.0.2",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
