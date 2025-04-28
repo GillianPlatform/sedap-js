@@ -34,7 +34,7 @@ const TraceViewEmptyNode = ({ data }: NodeComponentProps) => {
   const { componentOverrides } = useContext(TraceViewContext);
   const Button = componentOverrides.stepButton || componentOverrides.button || RoundButton;
   return (
-    <NodeBase nodeKind="empty" targetHandle>
+    <NodeBase nodeKind="empty" targetHandle={!!prev}>
       <NodeBox>
         <Button onClick={onStepButtonClick} className="sedap__stepButton">
           <VscPlay />
