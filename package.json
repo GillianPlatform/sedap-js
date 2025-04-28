@@ -11,6 +11,7 @@
     "./vscode/ui"
   ],
   "scripts": {
-    "check-versions": "node ./scripts/checkVersion.cjs"
+    "check-versions": "node ./scripts/checkVersion.cjs",
+    "build": "npm run build --workspaces --if-present"
   }
 }
