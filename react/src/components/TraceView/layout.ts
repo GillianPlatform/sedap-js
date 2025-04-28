@@ -25,6 +25,7 @@ interface ElkNodeExt extends ElkNode {
   zIndex?: number;
   type: string;
   data: FlowNodeData;
+  isHidden?: boolean;
 }
 interface ElkEdgeExt extends ElkExtendedEdge {
   zIndex?: number;
@@ -49,6 +50,7 @@ export default async function computeLayout(
       return ix;
     };
 
+    const getSubmapRootId = (id: string) => `S_${parents.join("_")}_${id}`;
     const getNodeId = (id: string) => `N_${parents.join("_")}_${id}`;
     const getEdgeId = (ix: number, prev: NodePrev) => `E_${prev.id}_#${ix}`;
 
@@ -89,8 +91,7 @@ export default async function computeLayout(
     while (queue.length > 0) {
       const { id, prev, layer, ixInLayer, isEmpty } = queue.shift()!;
       const node = isEmpty ? undefined : nodes[id];
-      const subChildren: ElkNodeExt[] = [];
-      const subEdges: ElkEdgeExt[] = [];
+      const subgraphs: ElkNodeExt[] = [];
       let nodeKind = "empty";
       if (node) {
         switch (node.next.kind) {
@@ -110,10 +111,14 @@ export default async function computeLayout(
         }
 
         const submaps = (expandedNodes.has(id) && node.submaps) || [];
+        let priority = submaps.length;
         for (const submapId of submaps) {
           const subgraph = structureNodesAndEdges(submapId, [...parents, id]);
-          subChildren.push(...(subgraph.children || []));
-          subEdges.push(...(subgraph.edges || []));
+          subgraph.id = getSubmapRootId(submapId);
+          if (!subgraph.layoutOptions) subgraph.layoutOptions = {};
+          subgraph.layoutOptions["elk.priority"] = `${priority--}`;
+          subgraph.isHidden = true;
+          subgraphs.push(subgraph);
         }
 
         const kind = node.options.kind === "custom" ? node.options.customKind : node.options.kind;
@@ -123,8 +128,7 @@ export default async function computeLayout(
       children.push({
         id: getNodeId(id),
         data: { node, prev },
-        children: subChildren,
-        edges: subEdges,
+        children: subgraphs,
         type: nodeKind,
         ...nodeKinds[nodeKind].baseSize,
         zIndex: submapDepth,
@@ -163,10 +167,12 @@ export default async function computeLayout(
     for (const node of graph.children || []) {
       const x = node.x! + parentX;
       const y = node.y! + parentY;
-      nodes.push({
-        ...node,
-        position: { x, y },
-      });
+      if (!node.isHidden) {
+        nodes.push({
+          ...node,
+          position: { x, y },
+        });
+      }
       const [childNodes, childEdges] = flattenGraph(node, x, y);
       nodes.push(...childNodes);
       edges.push(...childEdges);
