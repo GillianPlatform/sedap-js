@@ -32,6 +32,7 @@ const TraceView: React.FC<TraceViewProps> = ({
   componentOverrides = {},
   layoutOptions = DEFAULT_LAYOUT_OPTIONS,
   reactFlowProps = DEFAULT_REACT_FLOW_PROPS,
+  nodeTooltips = false,
 }: TraceViewProps) => {
   const [[placedNodes, placedEdges], setPlacedGraph] = useState<[Flow.Node[], Flow.Edge[]]>([
     [],
@@ -88,6 +89,7 @@ const TraceView: React.FC<TraceViewProps> = ({
     stepNext: onNextStepSelected,
     zoomNode: onZoomNode,
     componentOverrides,
+    nodeTooltips,
   };
 
   return (

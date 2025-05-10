@@ -2,12 +2,15 @@ import { Handle, Position } from "@xyflow/react";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { Selected } from "../../types";
+import Tooltip from "./util/Tooltip";
 
 export type TraceViewNodeBaseProps = {
   selected?: Selected;
   nodeKind: string;
   targetHandle?: boolean;
   sourceHandle?: boolean;
+  tooltip?: ReactNode | undefined;
+  tooltipVisible?: boolean;
   children?: ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -34,6 +37,8 @@ const TraceViewNodeBase = ({
   nodeKind,
   targetHandle = false,
   sourceHandle = false,
+  tooltip,
+  tooltipVisible = false,
   children,
   style = {},
   className: className_,
@@ -41,9 +46,15 @@ const TraceViewNodeBase = ({
   let className = "sedap__nodeWrap";
   if (className_) className += ` ${className_}`;
 
+  let tooltipNode: ReactNode | undefined;
+  if (tooltip) {
+    tooltipNode = <Tooltip visible={tooltipVisible}>{tooltip}</Tooltip>;
+  }
+
   return (
     <>
       {targetHandle && <Handle type="target" position={Position.Top} isConnectable={false} />}
+      {tooltipNode}
       <Wrap
         data-sedap-node-kind={nodeKind}
         {...{

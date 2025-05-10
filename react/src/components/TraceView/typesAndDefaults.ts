@@ -42,6 +42,7 @@ export type TraceViewProps = {
   componentOverrides?: ComponentOverrides;
   layoutOptions?: LayoutOptions;
   reactFlowProps?: ReactFlowProps;
+  nodeTooltips?: boolean;
 };
 
 // Declaring as a constant to prevent a re-rendering trap!

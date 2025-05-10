@@ -14,6 +14,7 @@ export type TraceViewContext = {
   setNodeExpanded: (nodeId: string, expanded: boolean) => void;
   zoomNode: (id: string, name: string) => void;
   componentOverrides: ComponentOverrides;
+  nodeTooltips: boolean;
 };
 
 const TraceViewContext = createContext<TraceViewContext>({
@@ -26,6 +27,7 @@ const TraceViewContext = createContext<TraceViewContext>({
   stepNext: () => {},
   zoomNode: () => {},
   componentOverrides: {},
+  nodeTooltips: false,
 });
 
 export default TraceViewContext;
