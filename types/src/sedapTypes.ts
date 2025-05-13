@@ -37,11 +37,16 @@ export type MapNodeNext =
  * This interface was referenced by `SEDAP`'s JSON-Schema
  * via the `definition` "MapNodeExtra".
  */
-export type MapNodeExtra = {
-  kind: "badge";
-  text: string;
-  tag?: string;
-};
+export type MapNodeExtra =
+  | {
+      kind: "badge";
+      text: string;
+      tag?: string;
+    }
+  | {
+      kind: "tooltip";
+      text: string;
+    };
 /**
  * This interface was referenced by `SEDAP`'s JSON-Schema
  * via the `definition` "MapNodeOptions".
@@ -51,6 +56,7 @@ export type MapNodeOptions =
       kind: "basic";
       display: string;
       selectable?: boolean;
+      highlight?: "error" | "warning" | "info" | "success";
       extras?: MapNodeExtra[];
     }
   | {

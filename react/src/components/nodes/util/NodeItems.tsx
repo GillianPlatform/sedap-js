@@ -16,9 +16,9 @@ const NodeItemRow = styled.div`
   gap: 0.25em;
 `;
 
-const NodeItems: React.FC<NodeItemsProps> = ({ items = {}, extras = [] }) => {
-  const filteredItems = Object.entries(items).filter(([, v]) => v);
-  const renderedExtras = renderExtras(extras).map((e, i) => [`extra-${i}`, e] as const);
+const NodeItems: React.FC<NodeItemsProps> = ({ items, extras }) => {
+  const filteredItems = Object.entries(items || {}).filter(([, v]) => v);
+  const renderedExtras = renderExtras(extras || []).map((e, i) => [`extra-${i}`, e] as const);
   const allItems = [...renderedExtras, ...filteredItems];
   if (allItems.length === 0) return null;
   return (

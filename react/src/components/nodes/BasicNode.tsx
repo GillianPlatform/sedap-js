@@ -1,6 +1,6 @@
 import { NodeComponent, NodeComponentProps, Selected } from "../../types";
 import TraceViewFallbackNode from "./FallbackNode";
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 import NodeBase_ from "./NodeBase";
 import { VscTarget } from "react-icons/vsc";
 import ExpandButton from "./util/ExpandButton";
@@ -20,8 +20,16 @@ const NodeBase = styled(NodeBase_)`
 `;
 
 const TraceViewBasicNode = (props: NodeComponentProps) => {
-  const { busy, selectedNodes, selectNode, expandedNodes, setNodeExpanded, componentOverrides } =
-    useContext(TraceViewContext);
+  const {
+    busy,
+    selectedNodes,
+    selectNode,
+    expandedNodes,
+    setNodeExpanded,
+    componentOverrides,
+    nodeTooltips,
+  } = useContext(TraceViewContext);
+  const [nodeHovered, setNodeHovered] = useState(false);
 
   const { data } = props;
   const { node } = data;
@@ -78,9 +86,36 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
     componentOverrides,
   }) as ReactNode;
 
+  const tooltips: ReactNode[] = [];
+  if (nodeTooltips) {
+    tooltips.push(<span className="sedap__nodeText">{display}</span>);
+  }
+  for (const extra of extras || []) {
+    if (extra.kind === "tooltip") {
+      tooltips.push(<span>{extra.text}</span>);
+    }
+  }
+
   return (
-    <NodeBase nodeKind="basic" selected={selected} targetHandle sourceHandle={hasSourceHandle}>
-      <NodeBox baseHeight={baseHeight} expanded={isNodeExpanded(node, expandedNodes)}>
+    <NodeBase
+      nodeKind="basic"
+      selected={selected}
+      targetHandle
+      sourceHandle={hasSourceHandle}
+      tooltips={tooltips}
+      tooltipVisible={nodeHovered}
+      highlight={options?.highlight}
+    >
+      <NodeBox
+        baseHeight={baseHeight}
+        expanded={isNodeExpanded(node, expandedNodes)}
+        onMouseEnter={() => {
+          setNodeHovered(true);
+        }}
+        onMouseLeave={() => {
+          setNodeHovered(false);
+        }}
+      >
         <span className="sedap__nodeText">{display}</span>
         <NodeItems {...{ items, extras }} />
       </NodeBox>

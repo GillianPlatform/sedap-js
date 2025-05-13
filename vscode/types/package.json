@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap-vscode-types",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Types for SEDAP VSCode helper libraries",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "types": "./src/index.d.ts",
@@ -8,7 +8,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@gillianplatform/sedap-types": "0.0.2",
+    "@gillianplatform/sedap-types": "0.0.3",
     "typescript": "^5.7.2"
   }
 }

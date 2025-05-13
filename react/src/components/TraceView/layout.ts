@@ -185,6 +185,6 @@ export default async function computeLayout(
     layoutOptions,
   })) as ElkNodeExt;
   const [layoutedNodes, layoutedEdges] = flattenGraph(layoutedGraph);
-  console.log({ graph, layoutedGraph, layoutedNodes, layoutedEdges });
+  // console.log({ graph, layoutedGraph, layoutedNodes, layoutedEdges });
   return [layoutedNodes, layoutedEdges];
 }

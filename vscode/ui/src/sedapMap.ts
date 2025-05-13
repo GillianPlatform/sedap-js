@@ -66,7 +66,6 @@ export function useSEDAPMap<T = unknown>(): MapState<T> {
   useEffect(() => {
     if (!initCommandSent) {
       debuggerCommand("getFullMap", {}).then((result) => {
-        console.log("RESULT!", { result });
         handleMapUpdate(result);
         setInitialised(true);
       });

@@ -27,16 +27,12 @@ export type NodeComponent<P = unknown> = React.FC<NodeComponentProps & P> & {
   baseSize: Size;
 };
 
-export interface ComponentOverrideProps extends React.HTMLAttributes<HTMLElement> {
-  className?: string;
-}
-
+export type ComponentOverrideProps = React.HTMLAttributes<HTMLElement>;
 export type OverrideComponent = React.ComponentType<ComponentOverrideProps>;
 
-export interface ButtonOverrideProps extends ComponentOverrideProps {
+export type ButtonOverrideProps = ComponentOverrideProps & {
   disabled?: boolean;
-}
-
+};
 export type ButtonOverrideComponent = React.ComponentType<ButtonOverrideProps>;
 
 export type ComponentOverrides = {

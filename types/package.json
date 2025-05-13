@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap-types",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "SEDAP types for TypeScript",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "types": "./src/index.d.ts",
@@ -8,7 +8,8 @@
     "update-schema": "node scripts/updateSchema.js",
     "gen-types": "json2ts ./schema/sedap.schema.json --unreachableDefinitions --additionalProperties false --cwd ./schema --output ./src/sedapTypes.ts",
     "gen-extra-types": "node scripts/genExtraTypes.js ./schema/sedap.schema.json ./src/extraTypes.ts",
-    "update": "npm run update-schema && npm run gen-types && npm run gen-extra-types"
+    "update": "npm run update-schema && npm run gen-types && npm run gen-extra-types",
+    "update-local": "cp ../../sedap/sedap.schema.json ./schema/ && npm run gen-types && npm run gen-extra-types"
   },
   "keywords": [],
   "author": "",

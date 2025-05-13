@@ -84,8 +84,6 @@ export default class SEDAPSession implements Disposable {
                   commandId: commandId,
                   result,
                 },
-              }).then((success) => {
-                console.log("sent", success);
               });
             });
             return;
