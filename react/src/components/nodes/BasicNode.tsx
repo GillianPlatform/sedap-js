@@ -86,9 +86,14 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
     componentOverrides,
   }) as ReactNode;
 
-  let tooltip: ReactNode | undefined;
+  const tooltips: ReactNode[] = [];
   if (nodeTooltips) {
-    tooltip = <span className="sedap__nodeText">{display}</span>;
+    tooltips.push(<span className="sedap__nodeText">{display}</span>);
+  }
+  for (const extra of extras || []) {
+    if (extra.kind === "tooltip") {
+      tooltips.push(<span>{extra.text}</span>);
+    }
   }
 
   return (
@@ -97,8 +102,9 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
       selected={selected}
       targetHandle
       sourceHandle={hasSourceHandle}
-      tooltip={tooltip}
+      tooltips={tooltips}
       tooltipVisible={nodeHovered}
+      highlight={options?.highlight}
     >
       <NodeBox
         baseHeight={baseHeight}

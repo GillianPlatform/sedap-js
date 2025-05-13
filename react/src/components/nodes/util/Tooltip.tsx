@@ -17,6 +17,13 @@ const Content = styled.div`
   background-color: var(--tooltip-background, black);
   border-radius: 5px;
   padding: 3px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const Item = styled.div`
+  padding: 5px;
 `;
 
 // https://css-tricks.com/snippets/css/css-triangle/
@@ -31,12 +38,17 @@ const ArrowUp = styled.div`
 
 export type TooltipProps = {
   visible: boolean;
-  children: React.ReactNode;
+  children: React.ReactNode[];
 };
 
 const Tooltip = ({ visible, children }: TooltipProps) => (
   <Wrap $visible={visible} className="sedap__nodeTooltip">
-    <Content className="sedap__nodeTooltipContent">{children}</Content>
+    <Content className="sedap__nodeTooltipContent">
+      {children.map((c) => (
+        // eslint-disable-next-line react/jsx-key
+        <Item className="sedap__nodeTooltipItem">{c}</Item>
+      ))}
+    </Content>
     <ArrowUp className="sedap__nodeTooltipArrow" />
   </Wrap>
 );

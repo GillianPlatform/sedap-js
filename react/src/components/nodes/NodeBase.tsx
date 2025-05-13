@@ -9,11 +9,12 @@ export type TraceViewNodeBaseProps = {
   nodeKind: string;
   targetHandle?: boolean;
   sourceHandle?: boolean;
-  tooltip?: ReactNode | undefined;
+  tooltips?: ReactNode[];
   tooltipVisible?: boolean;
   children?: ReactNode;
   style?: React.CSSProperties;
   className?: string;
+  highlight?: string | undefined;
 };
 
 const Wrap = styled.div`
@@ -37,30 +38,27 @@ const TraceViewNodeBase = ({
   nodeKind,
   targetHandle = false,
   sourceHandle = false,
-  tooltip,
+  tooltips = [],
   tooltipVisible = false,
   children,
   style = {},
   className: className_,
+  highlight,
 }: TraceViewNodeBaseProps) => {
   let className = "sedap__nodeWrap";
   if (className_) className += ` ${className_}`;
 
-  let tooltipNode: ReactNode | undefined;
-  if (tooltip) {
-    tooltipNode = <Tooltip visible={tooltipVisible}>{tooltip}</Tooltip>;
-  }
-
   return (
     <>
       {targetHandle && <Handle type="target" position={Position.Top} isConnectable={false} />}
-      {tooltipNode}
+      <Tooltip visible={tooltipVisible}>{tooltips}</Tooltip>
       <Wrap
         data-sedap-node-kind={nodeKind}
         {...{
           className,
           style,
           ...(selected ? { "data-sedap-node-selected": selected } : {}),
+          ...(highlight ? { "data-sedap-node-highlight": highlight } : {}),
         }}
       >
         {children}
