@@ -1,6 +1,6 @@
 {
   "name": "@gillianplatform/sedap-vscode-ext",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "SEDAP-related utilities for VSCode extensions",
   "repository":"https://github.com/gillianplatform/sedap-js",
   "type": "commonjs",
@@ -27,8 +27,8 @@
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
-    "@gillianplatform/sedap-types": "0.0.3",
-    "@gillianplatform/sedap-vscode-types": "0.0.3",
+    "@gillianplatform/sedap-types": "0.0.4",
+    "@gillianplatform/sedap-vscode-types": "0.0.4",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
