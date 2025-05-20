@@ -21,6 +21,7 @@ export type SEDAPSessionPartialProps = {
   webviewOptions?: WebviewPanelOptions & WebviewOptions;
   webviewShowOptions?: ViewColumn | { viewColumn: ViewColumn; preserveFocus?: boolean };
   showPanel?: boolean;
+  log?: boolean;
 };
 
 export type SEDAPSessionProps = SEDAPSessionPartialProps & {
@@ -45,7 +46,14 @@ export default class SEDAPSession implements Disposable {
   private disposables: Disposable[] = [];
   private disposed = false;
   private disposeListeners: ((session: SEDAPSession) => void)[] = [];
+  private log_ = false;
   // #endregion
+
+  private log(...data: unknown[]) {
+    if (this.log_) {
+      console.log("SEDAP:", ...data);
+    }
+  }
 
   private async cusomDebuggerCommand<T extends SEDAPCommandType>(
     command: T,
@@ -126,9 +134,11 @@ export default class SEDAPSession implements Disposable {
       return;
     }
     if (this.panel) {
+      this.log("SEDAP: Revealing existing panel", { this: this });
       this.panel.reveal();
     } else {
       this.createWebview();
+      this.log("SEDAP: Created webview", { this: this });
     }
   }
 
@@ -149,10 +159,13 @@ export default class SEDAPSession implements Disposable {
 
   public dispose() {
     if (!this.disposed) {
+      this.log("SEDAP: Disposing...", { this: this });
       this.disposables.forEach((x) => x.dispose());
       this.panel?.dispose();
       this.disposeListeners.forEach((f) => f(this));
       this.disposed = true;
+    } else {
+      this.log("SEDAP: Already disposed!", { this: this });
     }
   }
 
@@ -164,6 +177,7 @@ export default class SEDAPSession implements Disposable {
     webviewOptions = {},
     webviewShowOptions = ViewColumn.Two,
     showPanel = false,
+    log = false,
   }: SEDAPSessionProps) {
     this.panelName = panelName || session.name;
     this.panelIcon = panelIcon;
@@ -172,6 +186,9 @@ export default class SEDAPSession implements Disposable {
     this.webviewOptions = { ...defaultWebviewOptions, ...webviewOptions };
     this.webviewShowOptions = webviewShowOptions;
     this.getWebviewHtml = getWebviewHtml;
+    this.log_ = log;
+
+    this.log("SEDAP: Session started", { this: this });
 
     vscode.debug.onDidReceiveDebugSessionCustomEvent(
       ({ session, event, body }) => {
@@ -183,11 +200,16 @@ export default class SEDAPSession implements Disposable {
       this.disposables,
     );
 
-    vscode.debug.onDidTerminateDebugSession((session) => {
-      if (session.id === this.session.id) {
-        this.dispose();
-      }
-    });
+    vscode.debug.onDidTerminateDebugSession(
+      (session) => {
+        this.log("SEDAP: Session terminated", { this: this, other: session });
+        if (session.id === this.session.id) {
+          this.dispose();
+        }
+      },
+      this,
+      this.disposables,
+    );
 
     if (showPanel) {
       this.showWebviewPanel();
