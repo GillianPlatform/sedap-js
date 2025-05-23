@@ -6,8 +6,21 @@ function loadJSON(filename) {
   return obj;
 }
 
+function getRootPkg() {
+  return loadJSON("./package.json");
+}
+
+function getPackageJSONPaths() {
+  const rootPkg = getRootPkg();
+  const paths = ["./package.json"];
+  for (const workspace of rootPkg.workspaces) {
+    paths.push(`${workspace}/package.json`);
+  };
+  return paths;
+}
+
 function loadPackages({ log = false } = {}) {
-  const rootPkg = loadJSON("./package.json");
+  const rootPkg = getRootPkg();
   const pkgs = {};
   for (const workspace of rootPkg.workspaces) {
     const pkg = loadJSON(`${workspace}/package.json`);
@@ -25,4 +38,4 @@ const dependencyKeys = [
   "optionalDependencies"
 ];
 
-module.exports = { loadJSON, loadPackages, dependencyKeys };
+module.exports = { loadJSON, getRootPkg, getPackageJSONPaths, loadPackages, dependencyKeys };

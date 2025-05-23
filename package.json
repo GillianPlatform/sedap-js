@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "check-versions": "node ./scripts/checkVersion.cjs",
+    "bump-versions": "node ./scripts/bumpVersion.cjs",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "lint-check": "npm run lint-check --workspaces --if-present"
