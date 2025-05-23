@@ -10,6 +10,8 @@ import CenterButton from "./util/CenterButton";
 import styled from "styled-components";
 import NodeBox from "./util/NodeBox";
 import { isNodeExpanded } from "./util/node";
+import { HighlightIcon } from "./util/HighlightIcon";
+import Row from "./util/Row";
 
 const baseWidth = 150;
 const baseHeight = 50;
@@ -39,7 +41,7 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
     return <TraceViewFallbackNode {...props} />;
   }
 
-  const { display, selectable = true, extras } = options;
+  const { display, selectable = true, extras, highlight } = options;
 
   let selected: Selected;
   if ((selectedNodes?.primary || []).includes(node.id)) {
@@ -64,7 +66,8 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
     }
   })();
 
-  const items: Record<string, ReactNode> = {};
+  // #region Items
+  const items: [string, ReactNode][] = [];
   if (selectable) {
     const Button = componentOverrides.selectNodeButton || componentOverrides.button || CenterButton;
     const selectButton = (
@@ -76,15 +79,17 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
         <VscTarget />
       </Button>
     );
-    items.selectButton = selectButton;
+    items.push(["selectButton", selectButton]);
   }
-  items.expandButton = ExpandButton({
+  const expandButton = ExpandButton({
     enabled: !busy,
     expandedNodes,
     setNodeExpanded,
     node,
     componentOverrides,
   }) as ReactNode;
+  items.push(["expandButton", expandButton]);
+  // #endregion
 
   const tooltips: ReactNode[] = [];
   if (nodeTooltips) {
@@ -104,7 +109,7 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
       sourceHandle={hasSourceHandle}
       tooltips={tooltips}
       tooltipVisible={nodeHovered}
-      highlight={options?.highlight}
+      highlight={highlight}
     >
       <NodeBox
         baseHeight={baseHeight}
@@ -116,7 +121,10 @@ const TraceViewBasicNode = (props: NodeComponentProps) => {
           setNodeHovered(false);
         }}
       >
-        <span className="sedap__nodeText">{display}</span>
+        <Row>
+          <HighlightIcon highlight={highlight} />
+          <span className="sedap__nodeText">{display}</span>
+        </Row>
         <NodeItems {...{ items, extras }} />
       </NodeBox>
     </NodeBase>
