@@ -1,8 +1,15 @@
-import { Background, BackgroundVariant, Controls, MiniMap, ReactFlow } from "@xyflow/react";
+import {
+  applyNodeChanges,
+  Background,
+  BackgroundVariant,
+  Controls,
+  MiniMap,
+  ReactFlow,
+} from "@xyflow/react";
 import * as Flow from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import computeLayout from "./layout";
 import builtinNodeKinds from "../nodes";
 import TraceViewContext from "./TraceViewContext";
@@ -34,10 +41,8 @@ const TraceView: React.FC<TraceViewProps> = ({
   reactFlowProps = DEFAULT_REACT_FLOW_PROPS,
   nodeTooltips = false,
 }: TraceViewProps) => {
-  const [[placedNodes, placedEdges], setPlacedGraph] = useState<[Flow.Node[], Flow.Edge[]]>([
-    [],
-    [],
-  ]);
+  const [rfNodes, setRfNodes] = useState<Flow.Node[]>([]);
+  const [rfEdges, setRfEdges] = useState<Flow.Edge[]>([]);
   const [busy, setBusy] = useState(true);
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(Set(initExpandedNodes));
 
@@ -55,7 +60,8 @@ const TraceView: React.FC<TraceViewProps> = ({
     computeLayout(root, nodes, nodeTypes, expandedNodes, layoutOptions).then(
       ([placedNodes, placedEdges]) => {
         if (isActive) {
-          setPlacedGraph([placedNodes, placedEdges]);
+          setRfNodes(placedNodes);
+          setRfEdges(placedEdges);
           setBusy(false);
         }
       },
@@ -64,6 +70,13 @@ const TraceView: React.FC<TraceViewProps> = ({
       isActive = false;
     };
   }, [root, nodes, nodeTypes, expandedNodes, layoutOptions]);
+
+  const onNodesChange = useCallback(
+    (changes: Flow.NodeChange<Flow.Node>[]) => {
+      setRfNodes((oldNodes) => applyNodeChanges(changes, oldNodes));
+    },
+    [setRfNodes],
+  );
 
   const controls = showControls ? <Controls showInteractive={false} /> : undefined;
   const minimap = showMinimap ? <MiniMap pannable /> : undefined;
@@ -96,8 +109,9 @@ const TraceView: React.FC<TraceViewProps> = ({
     <Box>
       <TraceViewContext.Provider value={context}>
         <ReactFlow
-          nodes={placedNodes}
-          edges={placedEdges}
+          nodes={rfNodes}
+          edges={rfEdges}
+          onNodesChange={onNodesChange}
           nodeTypes={nodeTypes}
           {...reactFlowProps}
         >
